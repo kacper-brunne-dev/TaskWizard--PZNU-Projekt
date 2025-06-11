@@ -1,0 +1,67 @@
+import 'package:flutter/material.dart';
+import '../models/task.dart';
+
+class TaskCard extends StatelessWidget {
+  final Task task;
+  final VoidCallback onEdit;
+
+  const TaskCard({
+    Key? key,
+    required this.task,
+    required this.onEdit,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final h = task.czasTrwania ~/ 60;
+    final m = task.czasTrwania % 60;
+    final durText = h > 0 ? '${h}h${m > 0 ? ' ${m}min' : ''}' : '${m}min';
+    final wagaOpis = {
+      5: 'Bardzo ważne',
+      4: 'Ważne',
+      3: 'Średnie',
+      2: 'Mało ważne',
+      1: 'Znikomy priorytet',
+    }[task.waga]!;
+    final terminText = task.termin.toLocal().toString().split(' ')[0];
+
+    return Card(
+      color: Colors.blue[800],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    task.name,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: onEdit,
+                  child: const Icon(Icons.edit, size: 20, color: Colors.white70),
+                ),
+              ],
+            ),
+            const SizedBox(height: 6),
+            Text(
+              '$terminText | $durText | $wagaOpis',
+              style: const TextStyle(color: Colors.white70),
+            ),
+            const SizedBox(height: 6),
+            Text(task.description, style: const TextStyle(color: Colors.white)),
+          ],
+        ),
+      ),
+    );
+  }
+}
