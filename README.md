@@ -1,2 +1,4 @@
 # TaskWizard--PZNU-Projekt
-Projekt Zaliczeniowy- PZNU 
+Projekt Zaliczeniowy- Projektowanei Zorientowane Na Użytkownika
+
+Brunné Kacper
